@@ -66,6 +66,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Algorithm-to-find-majority-element" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/05/Algorithm-to-find-majority-element/" class="article-date">
+  <time datetime="2018-10-06T00:46:53.000Z" itemprop="datePublished">2018-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/05/Algorithm-to-find-majority-element/">Algorithm to find majority element</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This algorithm can be used for <a href="https://leetcode.com/problems/majority-element-ii/description/" target="_blank" rel="noopener">leetcode 229</a> and <a href="https://leetcode.com/problems/majority-element/description/" target="_blank" rel="noopener">leetcode 169</a>.</p>
+<p>The algorithm is called <a href="https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm" target="_blank" rel="noopener">Boyer-Moore majority vote algorithm</a>.</p>
+<p>A blog for this algorithm can be found <a href="https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html" target="_blank" rel="noopener">here</a>.</p>
+<p>This algorithm can solve the following problem: Given an unordered array of size <code>n</code> of int, find all the elements that appear more than <code>floor(n / k)</code> times, with <code>O(k - 1)</code> space complexity and <code>O(n * (k - 1))</code> time complexity.</p>
+<p>The idea is:</p>
+<ul>
+<li>First, we allocate a vector of <code>k - 1</code> elements called <code>vals</code>. This is because we can have at most <code>k - 1</code> elements that satisfy the condition that it appears more than <code>floor(n / k)</code> times. We assign unique numbers to <code>vals</code>. We also allocate vector <code>counts</code> of size <code>k - 1</code> to record the number of times each value appears. <code>counts</code> is initialized to all zero.</li>
+<li>Then, for each <code>num</code> in <code>nums</code>, we check all <code>k - 1</code> values.<ul>
+<li>If <code>num</code> is the same as one of the <code>val</code>, we increase its <code>count</code>.</li>
+<li>If <code>num</code> is not the same as any of the <code>val</code>, but we find a <code>val</code> with <code>count == 0</code>, we replace that <code>val</code> with <code>num</code>, and set its <code>count</code> back to <code>1</code>.</li>
+<li>If <code>num</code> is not the same as any of the <code>val</code>, and for all the <code>val</code>s, we have <code>count &gt; 0</code>, we then decreace <code>count</code> for all the <code>val</code>s.</li>
+</ul>
+</li>
+<li>Finally, we go through all the <code>k - 1</code> values we recorded. For each <code>val</code>, we find its actual appearance time in <code>nums</code>, if this count satisfy <code>new_count &gt; floor(n / k)</code>, then, <code>val</code> is a solution. If not, we discard this <code>val</code>.</li>
+</ul>
+<p>The c++ implementation is as following:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; majorityElements(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vals(k - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; counts(k - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// Initialization.</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vals.size(); i ++) &#123;</span><br><span class="line">        vals[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> num : nums) &#123;</span><br><span class="line">        <span class="comment">// First check if there is a val that equals num.</span></span><br><span class="line">        <span class="keyword">bool</span> foundSame = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vals.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(vals[i] == num) &#123;</span><br><span class="line">                counts[i] ++;</span><br><span class="line">                foundSame = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(foundSame) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Then, check if there's a val with count 0.</span></span><br><span class="line">        <span class="keyword">bool</span> foundZeroCount = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vals.size(); i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(counts[i] == <span class="number">0</span>) &#123;</span><br><span class="line">                vals[i] = num;</span><br><span class="line">                counts[i] = <span class="number">1</span>;</span><br><span class="line">                foundZeroCount = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(foundZeroCount) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// If we do not find a val == num, nor we find a count == 0, we decrease all counts.</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vals.size(); i ++) &#123;</span><br><span class="line">            counts[i] --;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rtn;</span><br><span class="line">    <span class="comment">// Then, for all the vals we recorded, we check if it is actually a majority element we want.</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> val : vals) &#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span>(num == val) &#123;</span><br><span class="line">                cnt ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cnt &gt; nums.size() / k) &#123;</span><br><span class="line">            rtn.push_back(val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> rtn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/10/05/Algorithm-to-find-majority-element/" data-id="cjmwt81mf0000ia6twyhej37j" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/10/05/Algorithm-to-find-majority-element/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Algorithm-to-shuffle-an-array" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/26/Algorithm-to-shuffle-an-array/" class="article-date">
@@ -98,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/" data-id="cjmwpn62h0000tp6tf45dovij" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/" data-id="cjmwt81mk0001ia6tret9ghj7" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -171,7 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/" data-id="cjmwpn62o0001tp6tjwldr0sg" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/" data-id="cjmwt81mp0003ia6tstrct6z2" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -219,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/09/09/todo-algorithms/" data-id="cjmwpn6300005tp6tb50jv2a7" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/09/09/todo-algorithms/" data-id="cjmwt81mt0007ia6tklcegv4n" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/09/09/todo-algorithms/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -267,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/" data-id="cjmwpn62y0004tp6tja54oms8" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/" data-id="cjmwt81mr0005ia6t3ooj7wy6" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -324,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/" data-id="cjmwpn62v0003tp6t198xc8hw" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/" data-id="cjmwt81mq0004ia6ta69xb1ty" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -361,7 +418,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a>
+      <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 15px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 15px;">leetcode</a>
     </div>
   </div>
 
@@ -370,7 +427,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
     </div>
   </div>
 
@@ -381,6 +438,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/10/05/Algorithm-to-find-majority-element/">Algorithm to find majority element</a>
+          </li>
         
           <li>
             <a href="/2018/09/26/Algorithm-to-shuffle-an-array/">Algorithm to shuffle an array</a>
@@ -396,10 +457,6 @@
         
           <li>
             <a href="/2018/07/29/lower-bound-and-upper-bound/">lower_bound and upper_bound</a>
-          </li>
-        
-          <li>
-            <a href="/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/">Start a blog to keep track of some notes.</a>
           </li>
         
       </ul>
