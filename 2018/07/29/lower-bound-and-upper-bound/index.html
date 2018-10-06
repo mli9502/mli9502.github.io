@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>lower_bound and upper_bound | Mengwen&#39;s blog</title>
+  <meta name="google-site-verification" content="b4Ue0TSagJytS36Ka3C7UAekObDLixDjui1eoo1827s" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Tried to use stl lower_bound and upper_bound today and noticed that I didn’t quite understand them correctly before. The corresponding leetcode problem Some notes on these: For std::lower_bound(T k),">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lower_bound and upper_bound">
+<meta property="og:url" content="https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/index.html">
+<meta property="og:site_name" content="Mengwen&#39;s blog">
+<meta property="og:description" content="Tried to use stl lower_bound and upper_bound today and noticed that I didn’t quite understand them correctly before. The corresponding leetcode problem Some notes on these: For std::lower_bound(T k),">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-06T00:36:03.374Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lower_bound and upper_bound">
+<meta name="twitter:description" content="Tried to use stl lower_bound and upper_bound today and noticed that I didn’t quite understand them correctly before. The corresponding leetcode problem Some notes on these: For std::lower_bound(T k),">
+  
+    <link rel="alternate" href="/atom.xml" title="Mengwen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mengwen&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mli9502.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-lower-bound-and-upper-bound" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/29/lower-bound-and-upper-bound/" class="article-date">
+  <time datetime="2018-07-29T17:21:19.000Z" itemprop="datePublished">2018-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lower_bound and upper_bound
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Tried to use stl <code>lower_bound</code> and <code>upper_bound</code> today and noticed that I didn’t quite understand them correctly before.</p>
+<p><a href="https://leetcode.com/problems/random-pick-with-weight/description/" target="_blank" rel="noopener">The corresponding leetcode problem</a></p>
+<p>Some notes on these:</p>
+<p>For <code>std::lower_bound(T k)</code>, it returns the first element that is <strong>greater or equal</strong> to k.</p>
+<p>For <code>std::upper_bound(T k)</code>, it returns the first element that is <strong>greater</strong> than k.</p>
+<p>For example:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cassert&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; hm &#123;&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">3</span>, <span class="number">3</span>&#125;, &#123;<span class="number">5</span>, <span class="number">5</span>&#125;, &#123;<span class="number">7</span>, <span class="number">7</span>&#125;&#125;;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">    <span class="comment">// it == hm.end() because there does not exist a value in hm that is &gt;= 8.</span></span><br><span class="line">    it = hm.lower_bound(<span class="number">8</span>);</span><br><span class="line">    <span class="keyword">if</span>(it == hm.end()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Can't find a value &gt;= 8..."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        assert(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// it points to &#123;7, 7&#125;.</span></span><br><span class="line">    it = hm.lower_bound(<span class="number">7</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"lower_bound for 7: "</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// it == hm.end() because there does not exist a value in hm that is &gt; 7.</span></span><br><span class="line">    it = hm.upper_bound(<span class="number">7</span>);</span><br><span class="line">    <span class="keyword">if</span>(it == hm.end()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Cannot find a value &gt; 7..."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        assert(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// it points to &#123;5, 5&#125;.</span></span><br><span class="line">    it = hm.lower_bound(<span class="number">5</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"lower_bound for 5: "</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// it points to &#123;7, 7&#125;.</span></span><br><span class="line">    it = hm.upper_bound(<span class="number">5</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"upper_bound for 5: "</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="built_in">endl</span>;	</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If we want to find a value in <code>std::map</code> that is strictly less than a given key <code>k</code>, we can do the following:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = hm.lower_bound(k);</span><br><span class="line"><span class="keyword">if</span>(it == hm.begin()) &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Can't find a value that is strictly less than k!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    --it;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The value that is strictly less than k is: "</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/" data-id="cjmwpn62y0004tp6tja54oms8" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/09/todo-algorithms/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          todo algorithms
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Start a blog to keep track of some notes.</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/26/Algorithm-to-shuffle-an-array/">Algorithm to shuffle an array</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/Hide-human-readable-information-in-c-binary/">Hide human-readable information in c++ binary</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/09/todo-algorithms/">todo algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/29/lower-bound-and-upper-bound/">lower_bound and upper_bound</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/">Start a blog to keep track of some notes.</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Mengwen Li<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'https-mli9502-github-io';
+  
+  var disqus_url = 'https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

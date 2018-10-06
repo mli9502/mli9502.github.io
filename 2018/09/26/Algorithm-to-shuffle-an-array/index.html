@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Algorithm to shuffle an array | Mengwen&#39;s blog</title>
+  <meta name="google-site-verification" content="b4Ue0TSagJytS36Ka3C7UAekObDLixDjui1eoo1827s" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This algorithm can be used for leetcode 519. The algorithm is called Fisher-Yates shuffle. The question is to output the index of an array in a random order (we don’t care the actual value stored at t">
+<meta name="keywords" content="algorithm,leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Algorithm to shuffle an array">
+<meta property="og:url" content="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/index.html">
+<meta property="og:site_name" content="Mengwen&#39;s blog">
+<meta property="og:description" content="This algorithm can be used for leetcode 519. The algorithm is called Fisher-Yates shuffle. The question is to output the index of an array in a random order (we don’t care the actual value stored at t">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-06T00:36:03.373Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Algorithm to shuffle an array">
+<meta name="twitter:description" content="This algorithm can be used for leetcode 519. The algorithm is called Fisher-Yates shuffle. The question is to output the index of an array in a random order (we don’t care the actual value stored at t">
+  
+    <link rel="alternate" href="/atom.xml" title="Mengwen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mengwen&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mli9502.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Algorithm-to-shuffle-an-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/26/Algorithm-to-shuffle-an-array/" class="article-date">
+  <time datetime="2018-09-27T01:41:07.000Z" itemprop="datePublished">2018-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Algorithm to shuffle an array
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This algorithm can be used for <a href="https://leetcode.com/problems/random-flip-matrix/description/" target="_blank" rel="noopener">leetcode 519</a>. The algorithm is called <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Fisher_and_Yates&#39;_original_method" target="_blank" rel="noopener">Fisher-Yates shuffle</a>.</p>
+<p>The question is to output the index of an array in a random order (we don’t care the actual value stored at that position), and minimize the number of <code>rand()</code> called and also optimize for space and time complexity.</p>
+<p>e.g.: Given array of size 6, the output may look like the following:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(0, 3), (0, 1), (0, 2), (0, 4), (0, 0), (0, 5)</span><br></pre></td></tr></table></figure></p>
+<p>To achieve this, we can use the following code:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get a random number in range [minVal, maxVal].</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getRand</span><span class="params">(<span class="keyword">int</span> minVal, <span class="keyword">int</span> maxVal)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> rand() % (maxVal - minVal + <span class="number">1</span>) + minVal;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; solution(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; vec) &#123;</span><br><span class="line">	<span class="keyword">int</span> maxVal = vec.size() - <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; hm;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rtn;</span><br><span class="line">	<span class="comment">// We loop vec.size() times to get output all the index.</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vec.size(); i ++) &#123;</span><br><span class="line">		<span class="comment">// Choose a random index in range [0, maxVal].</span></span><br><span class="line">		<span class="keyword">int</span> randIdx = getRand(<span class="number">0</span>, maxVal);</span><br><span class="line">		<span class="keyword">int</span> currSelectedIdx;</span><br><span class="line">		<span class="comment">// If we have not seen randIdx before, </span></span><br><span class="line">		<span class="comment">// it means that randIdx is the current selected index, and we can just return it.</span></span><br><span class="line">		<span class="keyword">if</span>(hm.find(randIdx) == hm.end()) &#123;</span><br><span class="line">			currSelectedIdx = randIdx;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// If we have seen randIdx before, it means that randIdx has been selected before.</span></span><br><span class="line">			<span class="comment">// And, we need to select the index in hm[randIdx], which is what randIdx represents now.</span></span><br><span class="line">			currSelectedIdx = hm[randIdx];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// After the index for current iteration is determined, we need to swap it with the index represented by current maxVal.</span></span><br><span class="line">		<span class="comment">// If maxVal still represents maxVal.</span></span><br><span class="line">		<span class="keyword">if</span>(hm.find(maxVal) == hm.end()) &#123;</span><br><span class="line">			hm[randIdx] = maxVal;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// IMPORTANT !!!</span></span><br><span class="line">			<span class="comment">// If maxVal has been chosen before, and it now represents something else.</span></span><br><span class="line">			hm[randIdx] = hm[maxVal];</span><br><span class="line">		&#125;</span><br><span class="line">		maxVal --;</span><br><span class="line">		rtn.push_back(currSelectedIdx);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>This code can be easily extended to 2-D matrix, as we just have to convert <code>maxVal</code> into <code>rowCnt * colCnt - 1</code>. And <code>randIdx</code> has to be converted to <code>(row, col)</code> by using:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> row = randIdx / colCnt;</span><br><span class="line"><span class="keyword">int</span> col = randIdx % colCnt;</span><br></pre></td></tr></table></figure></p>
+<p>Here’s an example of running the algorithm:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">init: </span><br><span class="line">map = &#123;&#125;</span><br><span class="line">[0, 1, 2, 3, 4, 5]</span><br><span class="line">rtn = []</span><br><span class="line">--- randIdx = 3 (from [0, 5])</span><br><span class="line">map = &#123;3: 5&#125;</span><br><span class="line">rtn = [3]</span><br><span class="line">[0, 1, 2, 5, 4, X]</span><br><span class="line">--- randIdx = 1 (from [0, 4])</span><br><span class="line">map = &#123;3: 5,</span><br><span class="line">       1: 4&#125;</span><br><span class="line">rtn = [3, 1]</span><br><span class="line">[0, 4, 2, 5, X, X]</span><br><span class="line">--- randIdx = 2 (from [0, 3])</span><br><span class="line">map = &#123;3: 5,</span><br><span class="line">       1: 4,</span><br><span class="line">       2: 5&#125;</span><br><span class="line">rtn = [3, 1, 2]</span><br><span class="line">[0, 4, 5, X, X, X]</span><br><span class="line">--- randIdx = 1 (from [0, 2])</span><br><span class="line">map = &#123;3: 5</span><br><span class="line">       1: 4,</span><br><span class="line">       2: 5&#125;</span><br><span class="line">rtn = [3, 1, 2, 4]</span><br><span class="line">[0, 5, X, X, X, X]</span><br><span class="line">--- randIdx = 0 (from [0, 1])</span><br><span class="line">map = &#123;3: 5</span><br><span class="line">       1: 4,</span><br><span class="line">       2: 5,</span><br><span class="line">       0, 5&#125;</span><br><span class="line">rtn = [3, 1, 2, 4, 0]</span><br><span class="line">[5, X, X, X, X, X]</span><br><span class="line">--- randIdx = 0 (from [0, 0])</span><br><span class="line">map = &#123;3: 5</span><br><span class="line">       1: 4,</span><br><span class="line">       2: 5,</span><br><span class="line">       0, 5&#125;</span><br><span class="line">rtn = [3, 1, 2, 4, 0, 5]</span><br><span class="line">[X, X, X, X, X, X]</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/" data-id="cjmwpn62h0000tp6tf45dovij" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/09/26/Hide-human-readable-information-in-c-binary/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hide human-readable information in c++ binary</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/26/Algorithm-to-shuffle-an-array/">Algorithm to shuffle an array</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/26/Hide-human-readable-information-in-c-binary/">Hide human-readable information in c++ binary</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/09/todo-algorithms/">todo algorithms</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/29/lower-bound-and-upper-bound/">lower_bound and upper_bound</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/">Start a blog to keep track of some notes.</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Mengwen Li<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'https-mli9502-github-io';
+  
+  var disqus_url = 'https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
