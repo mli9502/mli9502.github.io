@@ -66,6 +66,294 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-leetcode-850-Rectangle-Area-II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/14/leetcode-850-Rectangle-Area-II/" class="article-date">
+  <time datetime="2018-11-14T13:28:10.000Z" itemprop="datePublished">2018-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/14/leetcode-850-Rectangle-Area-II/">leetcode 850 - Rectangle Area II</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/11/14/leetcode-850-Rectangle-Area-II/" data-id="cjr8qyr23000krg6t28mi882w" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/11/14/leetcode-850-Rectangle-Area-II/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Fenwick-Tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/14/Fenwick-Tree/" class="article-date">
+  <time datetime="2018-11-14T13:26:58.000Z" itemprop="datePublished">2018-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/14/Fenwick-Tree/">Fenwick Tree</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/11/14/Fenwick-Tree/" data-id="cjr8qyr1i0001rg6t6lm6e3g6" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/11/14/Fenwick-Tree/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Segment-Tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/14/Segment-Tree/" class="article-date">
+  <time datetime="2018-11-14T13:26:12.000Z" itemprop="datePublished">2018-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/14/Segment-Tree/">Segment Tree</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/11/14/Segment-Tree/" data-id="cjr8qyr1s0008rg6t4xzk7r5p" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/11/14/Segment-Tree/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-leetcode-765-Couples-Holding-Hands" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/24/leetcode-765-Couples-Holding-Hands/" class="article-date">
+  <time datetime="2018-10-25T02:18:53.000Z" itemprop="datePublished">2018-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/24/leetcode-765-Couples-Holding-Hands/">leetcode 765 - Couples Holding Hands</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://leetcode.com/problems/couples-holding-hands/description/" target="_blank" rel="noopener">leetcode 765 - Couples Holding Hands</a></p>
+<p><a href="https://leetcode.com/problems/couples-holding-hands/discuss/117520/Java-union-find-easy-to-understand-5-ms" target="_blank" rel="noopener">A Union-Find solution</a></p>
+<p>We first assign groups to elements in the array.</p>
+<p>For example, given array <code>[2, 1, 5, 0, 3, 4]</code>, we assign groups as the following:</p>
+<ul>
+<li><code>[0, 1]</code>: group <code>0</code></li>
+<li><code>[2, 3]</code>: group <code>2</code></li>
+<li><code>[4, 5]</code>: group <code>4</code></li>
+</ul>
+<p>To get the group number for a given array element, we can use <code>arr[i] &amp; (~0x1)</code>.</p>
+<p>As a result, if we represent <code>[2, 1, 5, 0, 3, 4]</code> in group labels, we get <code>[2, 0, 4, 0, 2, 4]</code>.</p>
+<p>We visualize each group as a vertax of a undirected graph. </p>
+<p>The initial connection of these vertaxes are determined by the pairs in the given array.</p>
+<p>For example, if the array is <code>[0, 0, 2, 2, 4, 4]</code>, we get the following graph:</p>
+<p><img src="/images/leetcode-765-Couples-Holding-Hands-0.png" alt="graph 0"></p>
+<p>If the array is <code>[2, 0, 4, 0, 2, 4]</code>, we get:</p>
+<p><img src="/images/leetcode-765-Couples-Holding-Hands-1.png" alt="graph 1"></p>
+<p>Assume the size of the input array is <code>N</code>, If all the couples are seat next to each other, we want the graph to have exactly <code>N / 2</code> connected components as shown in the <code>[0, 0, 2, 2, 4, 4]</code> graph.</p>
+<hr>
+<p>After we convert the input array into an undirected graph, we convert the problem to:</p>
+<p><code>Given this undirected graph with (N / 2) vertices, and at most two edges for a vertex, what is the minimum swaps needed to convert this graph to a graph that has exactly (N / 2) connected components?</code></p>
+<p>We can observe that, for the given kind of graph, every swap is guaranteed to break one vertex free if it is in a connected component, and thus, increase the total number of connected component by <code>1</code>.</p>
+<p>For example, for the array <code>[2, 0, 4, 0, 2, 4]</code>, after we swap idx <code>0</code> with idx <code>3</code>, we get <code>[0, 0, 4, 2, 2, 4]</code>. By doing this, we break vertex <code>0</code> free, and increase the connected component count from <code>1</code> to <code>2</code>.</p>
+<p>As a result, we can conclude that <code>(the # of components we increased) == (the # of swaps we have to do)</code></p>
+<p>Our gaol is to increase the total number of components to <code>N / 2</code>. Thus we have <code>(origional # of components) + (# of components we have to increase) == N / 2</code>.</p>
+<p>As a result, we have:<br><code>(# of swaps we have to do) == (# of components we have to increase) == N / 2 - (origional # of components)</code></p>
+<p>So, the problem now is converted to find <code>(origional # of connected components)</code> in this undirected graph.</p>
+<hr>
+<p>In order to find the origional number of connected components, we can do the following:</p>
+<p>If we start with <code>N / 2</code> connected components, each time we find a new edge between two components, we have to reduce the number of our connected components by <code>1</code>.</p>
+<p>For example, for array <code>[0, 2, 2, 0, 4, 4]</code>, we should have <code>2</code> connected components: <code>0 - 2</code> and <code>4</code>. If we start our component count at <code>3</code>, when we see the first pair <code>[0, 2]</code>, we know that component <code>0</code> and <code>2</code> are connected, so we reduce our component count to <code>2</code>. Then, we see pair <code>[2, 0]</code>, but since we already handled <code>[0, 2]</code>, we don’t have to handle <code>[2, 0]</code> again since the graph is undirected. So, in the end, we find out that we have <code>2</code> connected components in the graph generated by <code>[0, 2, 2, 0, 4, 4]</code>.</p>
+<p>To achieve this, we can use Union-Find method. </p>
+<p>We inspect one pair every time. If the two elements are not already in one group, we know that a new edge is now being added, which means we have to decrease the count of our connected components by <code>1</code>. Then, we union these two groups.</p>
+<p>The implementation is as following:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minSwapsCouples</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; row)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; hm;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row.size(); i ++) &#123;</span><br><span class="line">        <span class="comment">// Assign group label to couples.</span></span><br><span class="line">        <span class="comment">// 0 1: 0</span></span><br><span class="line">        <span class="comment">// 2 3: 2</span></span><br><span class="line">        <span class="comment">// 4 5: 4</span></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        hm[row[i]] = row[i] &amp; (~<span class="number">0x1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For each pair, if they are in two groups, we union the two groups together.</span></span><br><span class="line">    <span class="comment">// Every time we do a union, we have one less connected components.</span></span><br><span class="line">    <span class="comment">// The maximum number of connected components we can have is the number of couples, which is row.size() / 2.</span></span><br><span class="line">    <span class="keyword">int</span> maxNumOfConnectedComps = row.size() / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> initConnectedComps = maxNumOfConnectedComps;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row.size(); i += <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> g1 = uf_find(hm, row[i]);</span><br><span class="line">        <span class="keyword">int</span> g2 = uf_find(hm, row[i + <span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>(g1 != g2) &#123;</span><br><span class="line">            uf_union(hm, g1, g2);</span><br><span class="line">            initConnectedComps --;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Now, initConnectedComps represents the number of connected components we have.</span></span><br><span class="line">    <span class="comment">// # of swaps needed = max # of connected components - # of connected components we have.</span></span><br><span class="line">    <span class="comment">// This is because in a given connected component, for each swap, we can at most generate one additional connected component.</span></span><br><span class="line">    <span class="comment">// So, # of swaps needed + # of connected components we currently have = max # of connected components.</span></span><br><span class="line">    <span class="keyword">return</span> maxNumOfConnectedComps - initConnectedComps;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">uf_union</span><span class="params">(<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&amp; hm, <span class="keyword">int</span> g1, <span class="keyword">int</span> g2)</span> </span>&#123;</span><br><span class="line">    hm[g2] = g1;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">uf_find</span><span class="params">(<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&amp; hm, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(hm[val] == val) &#123;</span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> uf_find(hm, hm[val]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/10/24/leetcode-765-Couples-Holding-Hands/" data-id="cjr8qyr1v000crg6twcyjhoio" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/10/24/leetcode-765-Couples-Holding-Hands/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Articles-to-read" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/18/Articles-to-read/" class="article-date">
+  <time datetime="2018-10-19T03:18:23.000Z" itemprop="datePublished">2018-10-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/18/Articles-to-read/">Articles to read</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Some articles I found interesting and want to read…</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> <a href="https://git-scm.com/book/en/v1/Git-Internals" target="_blank" rel="noopener">how git works internally</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/10/18/Articles-to-read/" data-id="cjr8qyr1m0003rg6tedg5kce4" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/10/18/Articles-to-read/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Stack-sortable-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/13/Stack-sortable-array/" class="article-date">
+  <time datetime="2018-10-13T17:55:33.000Z" itemprop="datePublished">2018-10-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/13/Stack-sortable-array/">Stack-sortable array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This algorithm can be used for <a href="https://leetcode.com/problems/132-pattern/description/" target="_blank" rel="noopener">leetcode 456</a>.</p>
+<p>The problem is <a href="https://en.wikipedia.org/wiki/Stack-sortable_permutation" target="_blank" rel="noopener">Stack-sortable permutation</a>. The problem is to try to sort a array of numbers using only a single stack.</p>
+<p>The input array is stack-sortable only if it does not contain <code>231</code> pattern.</p>
+<p>As a result, we can check if the input sequence contains <code>231</code> pattern by checking if it is stack-sortable.</p>
+<p>Also, we can check if the input sequence contains <code>132</code> pattern by reverse the input sequence first, then, check if it contains <code>231</code> pattern by checking if the reversed sequence is stack-sortable.</p>
+<p>The algorithm is as following:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; stackSort(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rtn;</span><br><span class="line">    <span class="comment">// According to Wiki, every two different stack-sortable permutations produce a different Dyck string.</span></span><br><span class="line">    <span class="comment">// The Dyck string corresponds to push and pops.</span></span><br><span class="line">    <span class="comment">// It seems that even the sequence is not stack-sortable, it also corresponds to a Dyck string.</span></span><br><span class="line">    <span class="comment">// For example, both &#123;2, 3, 1&#125; and &#123;1, 3, 2&#125; corresponds to string "()(())".</span></span><br><span class="line">    <span class="built_in">string</span> dyck_lang = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(!st.empty() &amp;&amp; nums[i] &gt; st.top()) &#123;</span><br><span class="line">            rtn.push_back(st.top());</span><br><span class="line">            st.pop();</span><br><span class="line">            dyck_lang.push_back(<span class="string">')'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        st.push(nums[i]);</span><br><span class="line">        dyck_lang.push_back(<span class="string">'('</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!st.empty()) &#123;</span><br><span class="line">        rtn.push_back(st.top());</span><br><span class="line">        st.pop();</span><br><span class="line">        dyck_lang.push_back(<span class="string">')'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; dyck_lang &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> rtn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If the given input has a <code>231</code> pattern, say input is <code>231</code>, before <code>3</code> is pushed onto stack, <code>2</code> will be popped and added to result, but, <code>1</code> is less than <code>2</code> so it should be added before <code>2</code>.</p>
+<p>Another way to solve the <code>132 Pattern</code> problem is as following:</p>
+<p>We want to find <code>s1 &lt; s3 &lt; s2</code>. We start from the end of the input, and push the elements we get into a stack. </p>
+<p>When the value we encounter is greater than the top of the stack, it means that we have a candidate for <code>s2</code>. This is because there are some values after <code>s2</code> that is less than <code>s2</code>. </p>
+<p>Then, we start popping out the numbers from stack that are less than <code>s2</code> we found. And, we keep track of the <code>max</code> of the numbers we popped out. This <code>max</code> number is the <code>s3</code> we want to use for this <code>s2</code>. We want to keep the <code>max</code> because we want to have more possibility for <code>s1</code>.</p>
+<p>If the value we encounter is smaller than the <code>s3</code> we recorded, we can say that we have found a <code>s1</code>. This is because the <code>s3</code> we recorded must have a <code>s2</code> corresponding to it (<code>s3 &lt; s2</code>). If we found a <code>s1</code> such that <code>s1 &lt; s3</code>, we know that we have found the <code>s1 &lt; s3 &lt; s2</code> sequence.</p>
+<p>This solution can be found <a href="https://leetcode.com/problems/132-pattern/discuss/94071/Single-pass-C++-O(n" target="_blank" rel="noopener">here</a>-space-and-time-solution-(8-lines)-with-detailed-explanation.).</p>
+<p>The implementation is as following:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find132pattern</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> s3 = INT_MIN;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = nums.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i --) &#123;</span><br><span class="line">            <span class="comment">// If we found nums[i] &lt; s3, it means that we found s1 &lt; s3 &lt; s2 pattern. </span></span><br><span class="line">            <span class="keyword">if</span>(nums[i] &lt; s3) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// We found a s2 candidate.</span></span><br><span class="line">            <span class="keyword">if</span>(!st.empty() &amp;&amp; nums[i] &gt; st.top()) &#123;</span><br><span class="line">                s3 = INT_MIN;</span><br><span class="line">                <span class="keyword">while</span>(!st.empty() &amp;&amp; nums[i] &gt; st.top()) &#123;</span><br><span class="line">                    s3 = max(s3, st.top());</span><br><span class="line">                    st.pop();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            st.push(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/10/13/Stack-sortable-array/" data-id="cjr8qyr1o0004rg6t7yluz469" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/10/13/Stack-sortable-array/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Algorithm-to-find-majority-element" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/05/Algorithm-to-find-majority-element/" class="article-date">
@@ -109,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/10/05/Algorithm-to-find-majority-element/" data-id="cjmwt81mf0000ia6twyhej37j" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/10/05/Algorithm-to-find-majority-element/" data-id="cjr8qyr1p0005rg6t73itwnip" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/10/05/Algorithm-to-find-majority-element/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -155,7 +443,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/" data-id="cjmwt81mk0001ia6tret9ghj7" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/" data-id="cjr8qyr1a0000rg6tuyq9as2q" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/09/26/Algorithm-to-shuffle-an-array/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -223,12 +511,57 @@
 </ul>
 <p>To fix these problems, instead fo modifying the binary, we decided to encrypt all raw strings directly in the source file before compile.</p>
 <p>This requires a regular expression to match all string literals in source code. A base one is provided <a href="https://stackoverflow.com/questions/41909225/regex-for-matching-c-string-constant" target="_blank" rel="noopener">here</a>.</p>
-<p>to-be-continued…</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> Need to add the working sample.</li>
+</ul>
+<p>There are some benifits of using this solution:</p>
+<ul>
+<li><p>We can encode the string literal into anything we want. We don’t have to make sure that the encrypted string has the same length as the origional string.</p>
+</li>
+<li><p>We can choose the encryption and decryption algorithm we want.</p>
+</li>
+</ul>
+<p>One problem for this approch is that the string we matched using regex can not handle escape characters correctly. All the escape characters are being interpreted literially when doing string encryption.</p>
+<p>For example, <code>\n</code> will be treat as two characters, <code>\</code> and <code>n</code> when doing encryption, instead of being treated as ASCII character <code>LF</code> (10 in ASCII table). </p>
+<p>As a result, when we decrypt the string, we do not get the <code>LF</code> character we want, instead, we get <code>\</code> and <code>n</code> which is not correct.</p>
+<p>To fix this, we have to post-process the string matched by our regex into a vector of characters.</p>
+<p>During post-process, we convert all the escape sequences into their corresponding ASCII characters. Then, when decrypt, we will get the correct output.</p>
+<p>Another problem is that since we have to write the encrypted characters back into our source files, some of the encrypted characters are not printable nor human readable. So, to write them to the source file, we have to write the hexidecimal representation of the characters.</p>
+<p>For example, assume <code>\n</code> is encrypted into character sequence <code>abc</code>. Then, in the source file, <code>\n</code> is then replaced with <code>\x61\x62\x63</code>.</p>
+<h2 id="Replace-FILE-FUNCTION-and-PRETTY-FUNCTION"><a href="#Replace-FILE-FUNCTION-and-PRETTY-FUNCTION" class="headerlink" title="Replace __FILE__, __FUNCTION__ and __PRETTY_FUNCTION__"></a>Replace <code>__FILE__</code>, <code>__FUNCTION__</code> and <code>__PRETTY_FUNCTION__</code></h2><p>Since <code>__FILE__</code>, <code>__FUNCTION__</code> and <code>__PRETTY_FUNCTION__</code> will be replace by pre-processor to string literals, it will be added to the <code>.rodata</code> section of the binary. </p>
+<p>To prevent this, we can write our own script to pre-process the source files to replace all these macros to empty string. </p>
+<p>For the <code>__FILE__</code> macro, we can actually easily replace it with the actual file name string when we do our pre-process. But for <code>__FUNCTION__</code> and <code>__PRETTY_FUNCTION__</code>, it’s harder for a simple pre-process script to actually figure out what they should be replaced with.</p>
+<p>This pre-process should be done before we start extracting and encrypting strings. </p>
+<h2 id="Do-not-use-virtual-methods-for-classes-that-you-want-to-hide-name"><a href="#Do-not-use-virtual-methods-for-classes-that-you-want-to-hide-name" class="headerlink" title="Do not use virtual methods for classes that you want to hide name"></a>Do not use <code>virtual</code> methods for classes that you want to hide name</h2><p>If a class contains <code>virtual</code> methods, its name will be put into <code>rodata._ZTS&lt;class_name&gt;</code> section in the binary. Because this information is needed for <code>dynamic_cast</code> and exceptions. </p>
+<p>If the code base does not use RTTI features, <code>-fno-rtti</code> can be added to the compiler flag to prevent these information from being generated.</p>
+<p>Some useful links on <code>rodata._ZTI</code> and <code>rodata._ZTS</code> sections:</p>
+<ul>
+<li><a href="https://shaharmike.com/cpp/vtable-part1/" target="_blank" rel="noopener">https://shaharmike.com/cpp/vtable-part1/</a></li>
+<li><a href="ftp://gcc.gnu.org/pub/gcc/summit/2003/Getting%20the%20Best%20from%20G++.pdf" target="_blank" rel="noopener">ftp://gcc.gnu.org/pub/gcc/summit/2003/Getting%20the%20Best%20from%20G++.pdf</a></li>
+<li><a href="https://stackoverflow.com/questions/49381011/what-does-ztv-zts-zti-mean-in-the-result-of-gdb-x-nfu-vtable-address" target="_blank" rel="noopener">https://stackoverflow.com/questions/49381011/what-does-ztv-zts-zti-mean-in-the-result-of-gdb-x-nfu-vtable-address</a></li>
+</ul>
+<h2 id="Try-to-remove-rdynamic-flag"><a href="#Try-to-remove-rdynamic-flag" class="headerlink" title="Try to remove -rdynamic flag"></a>Try to remove <code>-rdynamic</code> flag</h2><p>If our final target is an executable, we can probably remove the <code>-rdynamic</code> flag. </p>
+<p>This will prevent a lot of symbols from being exported.</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/36692315/what-exactly-does-rdynamic-do-and-when-exactly-is-it-needed" target="_blank" rel="noopener">https://stackoverflow.com/questions/36692315/what-exactly-does-rdynamic-do-and-when-exactly-is-it-needed</a></li>
+</ul>
+<h2 id="Try-adding-fvisibility-hidden-and-exclude-libs-ALL"><a href="#Try-adding-fvisibility-hidden-and-exclude-libs-ALL" class="headerlink" title="Try adding -fvisibility=hidden and --exclude-libs,ALL"></a>Try adding <code>-fvisibility=hidden</code> and <code>--exclude-libs,ALL</code></h2><p><code>-fvisibility=hidden</code> makes all symbols hidden by default. </p>
+<p><code>--exclude-libs,ALL</code> excludes symbols in all archive libraries from automatic export.</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/3570355/c-fvisibility-hidden-fvisibility-inlines-hidden" target="_blank" rel="noopener">https://stackoverflow.com/questions/3570355/c-fvisibility-hidden-fvisibility-inlines-hidden</a></li>
+<li><a href="https://sourceware.org/binutils/docs/ld/Options.html" target="_blank" rel="noopener">https://sourceware.org/binutils/docs/ld/Options.html</a></li>
+</ul>
+<h2 id="Add-DNDEBUG-as-compiler-flag"><a href="#Add-DNDEBUG-as-compiler-flag" class="headerlink" title="Add -DNDEBUG as compiler flag"></a>Add <code>-DNDEBUG</code> as compiler flag</h2><p>If <code>-DNDEBUG</code> is added, all the <code>assert</code> s are stripped away from source code.  </p>
+<h2 id="Use-strip-command-to-get-rid-of-unneeded-sections-in-binary"><a href="#Use-strip-command-to-get-rid-of-unneeded-sections-in-binary" class="headerlink" title="Use strip command to get rid of unneeded sections in binary"></a>Use <code>strip</code> command to get rid of unneeded sections in binary</h2><p>Use <code>strip</code> with <code>-s</code> and <code>--strip-unneeded</code> will strip away a lot of sections not needed by binary.</p>
+<p>Also, <code>.note.ABI-tag</code>, <code>.note.gnu.build-id</code> and <code>.comment</code> sections can also be removed.</p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc."></a>Misc.</h2><ul>
+<li>If there are still visible strings left, use <code>objdump</code> and <code>readelf</code> on the object file that the string might come from, to locate which section does the string come from. </li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/" data-id="cjmwt81mp0003ia6tstrct6z2" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/" data-id="cjr8qyr1t000arg6tpnbghu1w" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -266,9 +599,23 @@
       
         <p>Some of the new algorithms encountered when doing leetcode. </p>
 <ul>
-<li>Bi-directional BFS.<ul>
+<li><p>Bi-directional BFS.</p>
+<ul>
+<li><a href="https://leetcode.com/problems/word-ladder/description/" target="_blank" rel="noopener">leetcode 127</a></li>
 <li><a href="https://leetcode.com/problems/open-the-lock/description/" target="_blank" rel="noopener">leetcode 752</a></li>
 <li><a href="https://www.geeksforgeeks.org/bidirectional-search/" target="_blank" rel="noopener">link to the algorithm</a></li>
+</ul>
+</li>
+<li><p>Segment Tree.</p>
+<ul>
+<li><a href="https://leetcode.com/problems/range-sum-query-mutable/description/" target="_blank" rel="noopener">leetcode 307</a></li>
+<li><a href="https://www.youtube.com/watch?v=Tr-xEGoByFQ" target="_blank" rel="noopener">youtube video for segment tree</a></li>
+</ul>
+</li>
+<li><p>Uniqueness of topological sort.</p>
+<ul>
+<li><a href="https://leetcode.com/problems/sequence-reconstruction/description/" target="_blank" rel="noopener">leetcode 444</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Topological_sorting" target="_blank" rel="noopener">wiki-link</a></li>
 </ul>
 </li>
 </ul>
@@ -276,7 +623,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/09/09/todo-algorithms/" data-id="cjmwt81mt0007ia6tklcegv4n" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/09/09/todo-algorithms/" data-id="cjr8qyr21000hrg6t7obs7wvr" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/09/09/todo-algorithms/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -290,114 +637,12 @@
 
 
   
-    <article id="post-lower-bound-and-upper-bound" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/29/lower-bound-and-upper-bound/" class="article-date">
-  <time datetime="2018-07-29T17:21:19.000Z" itemprop="datePublished">2018-07-29</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/29/lower-bound-and-upper-bound/">lower_bound and upper_bound</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Tried to use stl <code>lower_bound</code> and <code>upper_bound</code> today and noticed that I didn’t quite understand them correctly before.</p>
-<p><a href="https://leetcode.com/problems/random-pick-with-weight/description/" target="_blank" rel="noopener">The corresponding leetcode problem</a></p>
-<p>Some notes on these:</p>
-<p>For <code>std::lower_bound(T k)</code>, it returns the first element that is <strong>greater or equal</strong> to k.</p>
-<p>For <code>std::upper_bound(T k)</code>, it returns the first element that is <strong>greater</strong> than k.</p>
-<p>For example:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cassert&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; hm &#123;&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">3</span>, <span class="number">3</span>&#125;, &#123;<span class="number">5</span>, <span class="number">5</span>&#125;, &#123;<span class="number">7</span>, <span class="number">7</span>&#125;&#125;;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">    <span class="comment">// it == hm.end() because there does not exist a value in hm that is &gt;= 8.</span></span><br><span class="line">    it = hm.lower_bound(<span class="number">8</span>);</span><br><span class="line">    <span class="keyword">if</span>(it == hm.end()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Can't find a value &gt;= 8..."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        assert(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// it points to &#123;7, 7&#125;.</span></span><br><span class="line">    it = hm.lower_bound(<span class="number">7</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"lower_bound for 7: "</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// it == hm.end() because there does not exist a value in hm that is &gt; 7.</span></span><br><span class="line">    it = hm.upper_bound(<span class="number">7</span>);</span><br><span class="line">    <span class="keyword">if</span>(it == hm.end()) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Cannot find a value &gt; 7..."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        assert(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// it points to &#123;5, 5&#125;.</span></span><br><span class="line">    it = hm.lower_bound(<span class="number">5</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"lower_bound for 5: "</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// it points to &#123;7, 7&#125;.</span></span><br><span class="line">    it = hm.upper_bound(<span class="number">5</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"upper_bound for 5: "</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="built_in">endl</span>;	</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>If we want to find a value in <code>std::map</code> that is strictly less than a given key <code>k</code>, we can do the following:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = hm.lower_bound(k);</span><br><span class="line"><span class="keyword">if</span>(it == hm.begin()) &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Can't find a value that is strictly less than k!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    --it;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The value that is strictly less than k is: "</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Note that if we provide custom comparator to <code>std::map</code> for example, we need to make sure that the comparator returns <code>true</code> only for the cases where <code>lhs &lt; rhs</code> for <code>std::lower_bound</code> to work correctly. This is the same for <code>std::upper_bound</code>. <a href="https://en.cppreference.com/w/cpp/algorithm/lower_bound" target="_blank" rel="noopener">ref</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/" data-id="cjmwt81mr0005ia6t3ooj7wy6" class="article-share-link">Share</a>
-      
-        <a href="https://mli9502.github.io/2018/07/29/lower-bound-and-upper-bound/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Start-a-blog-to-keep-track-of-some-notes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/" class="article-date">
-  <time datetime="2018-07-25T03:32:57.000Z" itemprop="datePublished">2018-07-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/">Start a blog to keep track of some notes.</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>This is my github page, a place where I take notes on the stuff I learned from the courses I took and through-out my work.</p>
-<p>Hexo is pretty easy to set up.</p>
-<p>One problem I encounter is that when I run:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></p>
-<p>I got the following error:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR Local hexo not found</span><br></pre></td></tr></table></figure></p>
-<p>It turns out it’s because my node version is too low…</p>
-<p>Everything works after I updated my node version.</p>
-<p>When trying to deploy after adding a new post, the github page does not update.</p>
-<p>It seems that a <code>hexo clean</code> is needed before running <code>hexo depoly</code>.</p>
-<p><a href="https://gist.github.com/btfak/18938572f5df000ebe06fbd1872e4e39" target="_blank" rel="noopener">A useful link</a></p>
-<p>Process of creating a blog:</p>
-<ul>
-<li><code>cd &lt;path to blog/blog_init&gt;</code></li>
-<li><code>hexo new post &lt;title&gt;</code></li>
-<li><code>hexo generate</code></li>
-<li>Use <code>hexo server</code> to check the generated page</li>
-<li><code>hexo deploy</code> to deploy the change to github</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/" data-id="cjmwt81mq0004ia6ta69xb1ty" class="article-share-link">Share</a>
-      
-        <a href="https://mli9502.github.io/2018/07/24/Start-a-blog-to-keep-track-of-some-notes/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Misc/">Misc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -420,7 +665,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 15px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 15px;">leetcode</a>
+      <a href="/tags/Misc/" style="font-size: 13.33px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 13.33px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 16.67px;">leetcode</a>
     </div>
   </div>
 
@@ -429,7 +674,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
     </div>
   </div>
 
@@ -442,23 +687,23 @@
       <ul>
         
           <li>
-            <a href="/2018/10/05/Algorithm-to-find-majority-element/">Algorithm to find majority element</a>
+            <a href="/2018/11/14/leetcode-850-Rectangle-Area-II/">leetcode 850 - Rectangle Area II</a>
           </li>
         
           <li>
-            <a href="/2018/09/26/Algorithm-to-shuffle-an-array/">Algorithm to shuffle an array</a>
+            <a href="/2018/11/14/Fenwick-Tree/">Fenwick Tree</a>
           </li>
         
           <li>
-            <a href="/2018/09/26/Hide-human-readable-information-in-c-binary/">Hide human-readable information in c++ binary</a>
+            <a href="/2018/11/14/Segment-Tree/">Segment Tree</a>
           </li>
         
           <li>
-            <a href="/2018/09/09/todo-algorithms/">todo algorithms</a>
+            <a href="/2018/10/24/leetcode-765-Couples-Holding-Hands/">leetcode 765 - Couples Holding Hands</a>
           </li>
         
           <li>
-            <a href="/2018/07/29/lower-bound-and-upper-bound/">lower_bound and upper_bound</a>
+            <a href="/2018/10/18/Articles-to-read/">Articles to read</a>
           </li>
         
       </ul>

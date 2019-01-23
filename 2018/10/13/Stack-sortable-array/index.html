@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Stack-sortable array | Mengwen&#39;s blog</title>
+  <meta name="google-site-verification" content="b4Ue0TSagJytS36Ka3C7UAekObDLixDjui1eoo1827s" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This algorithm can be used for leetcode 456. The problem is Stack-sortable permutation. The problem is to try to sort a array of numbers using only a single stack. The input array is stack-sortable on">
+<meta name="keywords" content="algorithm,leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stack-sortable array">
+<meta property="og:url" content="https://mli9502.github.io/2018/10/13/Stack-sortable-array/index.html">
+<meta property="og:site_name" content="Mengwen&#39;s blog">
+<meta property="og:description" content="This algorithm can be used for leetcode 456. The problem is Stack-sortable permutation. The problem is to try to sort a array of numbers using only a single stack. The input array is stack-sortable on">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-23T05:27:05.851Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stack-sortable array">
+<meta name="twitter:description" content="This algorithm can be used for leetcode 456. The problem is Stack-sortable permutation. The problem is to try to sort a array of numbers using only a single stack. The input array is stack-sortable on">
+  
+    <link rel="alternate" href="/atom.xml" title="Mengwen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mengwen&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://mli9502.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Stack-sortable-array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/13/Stack-sortable-array/" class="article-date">
+  <time datetime="2018-10-13T17:55:33.000Z" itemprop="datePublished">2018-10-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Stack-sortable array
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This algorithm can be used for <a href="https://leetcode.com/problems/132-pattern/description/" target="_blank" rel="noopener">leetcode 456</a>.</p>
+<p>The problem is <a href="https://en.wikipedia.org/wiki/Stack-sortable_permutation" target="_blank" rel="noopener">Stack-sortable permutation</a>. The problem is to try to sort a array of numbers using only a single stack.</p>
+<p>The input array is stack-sortable only if it does not contain <code>231</code> pattern.</p>
+<p>As a result, we can check if the input sequence contains <code>231</code> pattern by checking if it is stack-sortable.</p>
+<p>Also, we can check if the input sequence contains <code>132</code> pattern by reverse the input sequence first, then, check if it contains <code>231</code> pattern by checking if the reversed sequence is stack-sortable.</p>
+<p>The algorithm is as following:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; stackSort(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rtn;</span><br><span class="line">    <span class="comment">// According to Wiki, every two different stack-sortable permutations produce a different Dyck string.</span></span><br><span class="line">    <span class="comment">// The Dyck string corresponds to push and pops.</span></span><br><span class="line">    <span class="comment">// It seems that even the sequence is not stack-sortable, it also corresponds to a Dyck string.</span></span><br><span class="line">    <span class="comment">// For example, both &#123;2, 3, 1&#125; and &#123;1, 3, 2&#125; corresponds to string "()(())".</span></span><br><span class="line">    <span class="built_in">string</span> dyck_lang = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i ++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(!st.empty() &amp;&amp; nums[i] &gt; st.top()) &#123;</span><br><span class="line">            rtn.push_back(st.top());</span><br><span class="line">            st.pop();</span><br><span class="line">            dyck_lang.push_back(<span class="string">')'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        st.push(nums[i]);</span><br><span class="line">        dyck_lang.push_back(<span class="string">'('</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!st.empty()) &#123;</span><br><span class="line">        rtn.push_back(st.top());</span><br><span class="line">        st.pop();</span><br><span class="line">        dyck_lang.push_back(<span class="string">')'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; dyck_lang &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> rtn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If the given input has a <code>231</code> pattern, say input is <code>231</code>, before <code>3</code> is pushed onto stack, <code>2</code> will be popped and added to result, but, <code>1</code> is less than <code>2</code> so it should be added before <code>2</code>.</p>
+<p>Another way to solve the <code>132 Pattern</code> problem is as following:</p>
+<p>We want to find <code>s1 &lt; s3 &lt; s2</code>. We start from the end of the input, and push the elements we get into a stack. </p>
+<p>When the value we encounter is greater than the top of the stack, it means that we have a candidate for <code>s2</code>. This is because there are some values after <code>s2</code> that is less than <code>s2</code>. </p>
+<p>Then, we start popping out the numbers from stack that are less than <code>s2</code> we found. And, we keep track of the <code>max</code> of the numbers we popped out. This <code>max</code> number is the <code>s3</code> we want to use for this <code>s2</code>. We want to keep the <code>max</code> because we want to have more possibility for <code>s1</code>.</p>
+<p>If the value we encounter is smaller than the <code>s3</code> we recorded, we can say that we have found a <code>s1</code>. This is because the <code>s3</code> we recorded must have a <code>s2</code> corresponding to it (<code>s3 &lt; s2</code>). If we found a <code>s1</code> such that <code>s1 &lt; s3</code>, we know that we have found the <code>s1 &lt; s3 &lt; s2</code> sequence.</p>
+<p>This solution can be found <a href="https://leetcode.com/problems/132-pattern/discuss/94071/Single-pass-C++-O(n" target="_blank" rel="noopener">here</a>-space-and-time-solution-(8-lines)-with-detailed-explanation.).</p>
+<p>The implementation is as following:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find132pattern</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> s3 = INT_MIN;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = nums.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i --) &#123;</span><br><span class="line">            <span class="comment">// If we found nums[i] &lt; s3, it means that we found s1 &lt; s3 &lt; s2 pattern. </span></span><br><span class="line">            <span class="keyword">if</span>(nums[i] &lt; s3) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// We found a s2 candidate.</span></span><br><span class="line">            <span class="keyword">if</span>(!st.empty() &amp;&amp; nums[i] &gt; st.top()) &#123;</span><br><span class="line">                s3 = INT_MIN;</span><br><span class="line">                <span class="keyword">while</span>(!st.empty() &amp;&amp; nums[i] &gt; st.top()) &#123;</span><br><span class="line">                    s3 = max(s3, st.top());</span><br><span class="line">                    st.pop();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            st.push(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mli9502.github.io/2018/10/13/Stack-sortable-array/" data-id="cjr8qyr1o0004rg6t7yluz469" class="article-share-link">Share</a>
+      
+        <a href="https://mli9502.github.io/2018/10/13/Stack-sortable-array/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/18/Articles-to-read/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Articles to read
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/05/Algorithm-to-find-majority-element/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Algorithm to find majority element</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Misc/" style="font-size: 13.33px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 13.33px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 16.67px;">leetcode</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/14/leetcode-850-Rectangle-Area-II/">leetcode 850 - Rectangle Area II</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/14/Fenwick-Tree/">Fenwick Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/14/Segment-Tree/">Segment Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/24/leetcode-765-Couples-Holding-Hands/">leetcode 765 - Couples Holding Hands</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/18/Articles-to-read/">Articles to read</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Mengwen Li<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'https-mli9502-github-io';
+  
+  var disqus_url = 'https://mli9502.github.io/2018/10/13/Stack-sortable-array/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

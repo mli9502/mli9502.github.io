@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Mengwen&#39;s blog">
 <meta property="og:description" content="I was recently working on hiding human readable information from a binary compiled from c++ source code.  Here are some of the steps I took to hide as much human readable information from binary as po">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-06T00:36:03.373Z">
+<meta property="og:updated_time" content="2019-01-23T05:27:05.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hide human-readable information in c++ binary">
 <meta name="twitter:description" content="I was recently working on hiding human readable information from a binary compiled from c++ source code.  Here are some of the steps I took to hide as much human readable information from binary as po">
@@ -120,12 +120,57 @@
 </ul>
 <p>To fix these problems, instead fo modifying the binary, we decided to encrypt all raw strings directly in the source file before compile.</p>
 <p>This requires a regular expression to match all string literals in source code. A base one is provided <a href="https://stackoverflow.com/questions/41909225/regex-for-matching-c-string-constant" target="_blank" rel="noopener">here</a>.</p>
-<p>to-be-continued…</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> Need to add the working sample.</li>
+</ul>
+<p>There are some benifits of using this solution:</p>
+<ul>
+<li><p>We can encode the string literal into anything we want. We don’t have to make sure that the encrypted string has the same length as the origional string.</p>
+</li>
+<li><p>We can choose the encryption and decryption algorithm we want.</p>
+</li>
+</ul>
+<p>One problem for this approch is that the string we matched using regex can not handle escape characters correctly. All the escape characters are being interpreted literially when doing string encryption.</p>
+<p>For example, <code>\n</code> will be treat as two characters, <code>\</code> and <code>n</code> when doing encryption, instead of being treated as ASCII character <code>LF</code> (10 in ASCII table). </p>
+<p>As a result, when we decrypt the string, we do not get the <code>LF</code> character we want, instead, we get <code>\</code> and <code>n</code> which is not correct.</p>
+<p>To fix this, we have to post-process the string matched by our regex into a vector of characters.</p>
+<p>During post-process, we convert all the escape sequences into their corresponding ASCII characters. Then, when decrypt, we will get the correct output.</p>
+<p>Another problem is that since we have to write the encrypted characters back into our source files, some of the encrypted characters are not printable nor human readable. So, to write them to the source file, we have to write the hexidecimal representation of the characters.</p>
+<p>For example, assume <code>\n</code> is encrypted into character sequence <code>abc</code>. Then, in the source file, <code>\n</code> is then replaced with <code>\x61\x62\x63</code>.</p>
+<h2 id="Replace-FILE-FUNCTION-and-PRETTY-FUNCTION"><a href="#Replace-FILE-FUNCTION-and-PRETTY-FUNCTION" class="headerlink" title="Replace __FILE__, __FUNCTION__ and __PRETTY_FUNCTION__"></a>Replace <code>__FILE__</code>, <code>__FUNCTION__</code> and <code>__PRETTY_FUNCTION__</code></h2><p>Since <code>__FILE__</code>, <code>__FUNCTION__</code> and <code>__PRETTY_FUNCTION__</code> will be replace by pre-processor to string literals, it will be added to the <code>.rodata</code> section of the binary. </p>
+<p>To prevent this, we can write our own script to pre-process the source files to replace all these macros to empty string. </p>
+<p>For the <code>__FILE__</code> macro, we can actually easily replace it with the actual file name string when we do our pre-process. But for <code>__FUNCTION__</code> and <code>__PRETTY_FUNCTION__</code>, it’s harder for a simple pre-process script to actually figure out what they should be replaced with.</p>
+<p>This pre-process should be done before we start extracting and encrypting strings. </p>
+<h2 id="Do-not-use-virtual-methods-for-classes-that-you-want-to-hide-name"><a href="#Do-not-use-virtual-methods-for-classes-that-you-want-to-hide-name" class="headerlink" title="Do not use virtual methods for classes that you want to hide name"></a>Do not use <code>virtual</code> methods for classes that you want to hide name</h2><p>If a class contains <code>virtual</code> methods, its name will be put into <code>rodata._ZTS&lt;class_name&gt;</code> section in the binary. Because this information is needed for <code>dynamic_cast</code> and exceptions. </p>
+<p>If the code base does not use RTTI features, <code>-fno-rtti</code> can be added to the compiler flag to prevent these information from being generated.</p>
+<p>Some useful links on <code>rodata._ZTI</code> and <code>rodata._ZTS</code> sections:</p>
+<ul>
+<li><a href="https://shaharmike.com/cpp/vtable-part1/" target="_blank" rel="noopener">https://shaharmike.com/cpp/vtable-part1/</a></li>
+<li><a href="ftp://gcc.gnu.org/pub/gcc/summit/2003/Getting%20the%20Best%20from%20G++.pdf" target="_blank" rel="noopener">ftp://gcc.gnu.org/pub/gcc/summit/2003/Getting%20the%20Best%20from%20G++.pdf</a></li>
+<li><a href="https://stackoverflow.com/questions/49381011/what-does-ztv-zts-zti-mean-in-the-result-of-gdb-x-nfu-vtable-address" target="_blank" rel="noopener">https://stackoverflow.com/questions/49381011/what-does-ztv-zts-zti-mean-in-the-result-of-gdb-x-nfu-vtable-address</a></li>
+</ul>
+<h2 id="Try-to-remove-rdynamic-flag"><a href="#Try-to-remove-rdynamic-flag" class="headerlink" title="Try to remove -rdynamic flag"></a>Try to remove <code>-rdynamic</code> flag</h2><p>If our final target is an executable, we can probably remove the <code>-rdynamic</code> flag. </p>
+<p>This will prevent a lot of symbols from being exported.</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/36692315/what-exactly-does-rdynamic-do-and-when-exactly-is-it-needed" target="_blank" rel="noopener">https://stackoverflow.com/questions/36692315/what-exactly-does-rdynamic-do-and-when-exactly-is-it-needed</a></li>
+</ul>
+<h2 id="Try-adding-fvisibility-hidden-and-exclude-libs-ALL"><a href="#Try-adding-fvisibility-hidden-and-exclude-libs-ALL" class="headerlink" title="Try adding -fvisibility=hidden and --exclude-libs,ALL"></a>Try adding <code>-fvisibility=hidden</code> and <code>--exclude-libs,ALL</code></h2><p><code>-fvisibility=hidden</code> makes all symbols hidden by default. </p>
+<p><code>--exclude-libs,ALL</code> excludes symbols in all archive libraries from automatic export.</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/3570355/c-fvisibility-hidden-fvisibility-inlines-hidden" target="_blank" rel="noopener">https://stackoverflow.com/questions/3570355/c-fvisibility-hidden-fvisibility-inlines-hidden</a></li>
+<li><a href="https://sourceware.org/binutils/docs/ld/Options.html" target="_blank" rel="noopener">https://sourceware.org/binutils/docs/ld/Options.html</a></li>
+</ul>
+<h2 id="Add-DNDEBUG-as-compiler-flag"><a href="#Add-DNDEBUG-as-compiler-flag" class="headerlink" title="Add -DNDEBUG as compiler flag"></a>Add <code>-DNDEBUG</code> as compiler flag</h2><p>If <code>-DNDEBUG</code> is added, all the <code>assert</code> s are stripped away from source code.  </p>
+<h2 id="Use-strip-command-to-get-rid-of-unneeded-sections-in-binary"><a href="#Use-strip-command-to-get-rid-of-unneeded-sections-in-binary" class="headerlink" title="Use strip command to get rid of unneeded sections in binary"></a>Use <code>strip</code> command to get rid of unneeded sections in binary</h2><p>Use <code>strip</code> with <code>-s</code> and <code>--strip-unneeded</code> will strip away a lot of sections not needed by binary.</p>
+<p>Also, <code>.note.ABI-tag</code>, <code>.note.gnu.build-id</code> and <code>.comment</code> sections can also be removed.</p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc."></a>Misc.</h2><ul>
+<li>If there are still visible strings left, use <code>objdump</code> and <code>readelf</code> on the object file that the string might come from, to locate which section does the string come from. </li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/" data-id="cjmwt81mp0003ia6tstrct6z2" class="article-share-link">Share</a>
+      <a data-url="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/" data-id="cjr8qyr1t000arg6tpnbghu1w" class="article-share-link">Share</a>
       
         <a href="https://mli9502.github.io/2018/09/26/Hide-human-readable-information-in-c-binary/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -185,7 +230,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 15px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 15px;">leetcode</a>
+      <a href="/tags/Misc/" style="font-size: 13.33px;">Misc</a> <a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/c/" style="font-size: 13.33px;">c++</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/leetcode/" style="font-size: 16.67px;">leetcode</a>
     </div>
   </div>
 
@@ -194,7 +239,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
     </div>
   </div>
 
@@ -207,23 +252,23 @@
       <ul>
         
           <li>
-            <a href="/2018/10/05/Algorithm-to-find-majority-element/">Algorithm to find majority element</a>
+            <a href="/2018/11/14/leetcode-850-Rectangle-Area-II/">leetcode 850 - Rectangle Area II</a>
           </li>
         
           <li>
-            <a href="/2018/09/26/Algorithm-to-shuffle-an-array/">Algorithm to shuffle an array</a>
+            <a href="/2018/11/14/Fenwick-Tree/">Fenwick Tree</a>
           </li>
         
           <li>
-            <a href="/2018/09/26/Hide-human-readable-information-in-c-binary/">Hide human-readable information in c++ binary</a>
+            <a href="/2018/11/14/Segment-Tree/">Segment Tree</a>
           </li>
         
           <li>
-            <a href="/2018/09/09/todo-algorithms/">todo algorithms</a>
+            <a href="/2018/10/24/leetcode-765-Couples-Holding-Hands/">leetcode 765 - Couples Holding Hands</a>
           </li>
         
           <li>
-            <a href="/2018/07/29/lower-bound-and-upper-bound/">lower_bound and upper_bound</a>
+            <a href="/2018/10/18/Articles-to-read/">Articles to read</a>
           </li>
         
       </ul>
